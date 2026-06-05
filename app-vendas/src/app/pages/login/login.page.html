@@ -1,0 +1,21 @@
+<ion-content class="ion-padding login-content">
+  <div class="login-container">
+    <div class="login-header">
+      <ion-icon name="storefront-outline"></ion-icon>
+      <h1>App Vendas</h1>
+      <p>Faça login para continuar</p>
+    </div>
+    <ion-item lines="full">
+      <ion-label position="floating">E-mail</ion-label>
+      <ion-input type="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Senha</ion-label>
+      <ion-input type="password" [(ngModel)]="senha"></ion-input>
+    </ion-item>
+    <ion-button expand="block" class="btn-login" (click)="entrar()">
+      <ion-icon name="log-in-outline" slot="start"></ion-icon>Entrar
+    </ion-button>
+    <div class="login-info"><p>Usuário teste:</p><small>admin@admin.com / 123456</small></div>
+  </div>
+</ion-content>
