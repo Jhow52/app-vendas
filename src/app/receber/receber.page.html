@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Receber</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Resumo -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Resumo</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item lines="none">
+        <ion-label>Total Pendente</ion-label>
+        <ion-note slot="end" color="warning">
+          <strong>R$ {{ totalPendente | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Total Recebido</ion-label>
+        <ion-note slot="end" color="success">
+          <strong>R$ {{ totalRecebido | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Lista de Vendas -->
+  <ion-card *ngFor="let v of vendas">
+    <ion-card-header>
+      <ion-card-subtitle>Venda #{{ v.id }} — {{ v.data }}</ion-card-subtitle>
+      <ion-card-title>{{ v.cliente.nome }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list>
+        <ion-item *ngFor="let item of v.itens">
+          <ion-label>
+            <p>{{ item.produto.nome }}</p>
+            <p>Qtd: {{ item.quantidade }} × R$ {{ item.produto.preco | number:'1.2-2' }}</p>
+          </ion-label>
+          <ion-note slot="end">R$ {{ item.subtotal | number:'1.2-2' }}</ion-note>
+        </ion-item>
+      </ion-list>
+
+      <ion-item lines="none">
+        <ion-label><strong>Total</strong></ion-label>
+        <ion-note slot="end" color="primary">
+          <strong>R$ {{ v.total | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+      <ion-badge [color]="v.status === 'recebido' ? 'success' : 'warning'">
+        {{ v.status }}
+      </ion-badge>
+
+      <div class="ion-margin-top">
+        <ion-button
+          expand="block"
+          color="success"
+          *ngIf="v.status === 'pendente'"
+          (click)="receberVenda(v)">
+          <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+          Confirmar Recebimento
+        </ion-button>
+
+        <ion-button
+          expand="block"
+          fill="outline"
+          color="warning"
+          *ngIf="v.status === 'recebido'"
+          (click)="estornarVenda(v)">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Estornar
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

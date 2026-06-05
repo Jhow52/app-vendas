@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastro de Cliente</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ modoEdicao ? 'Editar Cliente' : 'Novo Cliente' }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="cliente.nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">CPF</ion-label>
+        <ion-input type="text" [(ngModel)]="cliente.cpf" maxlength="14"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">E-mail</ion-label>
+        <ion-input type="email" [(ngModel)]="cliente.email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Telefone</ion-label>
+        <ion-input type="tel" [(ngModel)]="cliente.telefone" maxlength="15"></ion-input>
+      </ion-item>
+
+      <div class="form-buttons">
+        <ion-button expand="block" color="primary" (click)="salvar()">
+          <ion-icon name="save-outline" slot="start"></ion-icon>
+          {{ modoEdicao ? 'Atualizar' : 'Salvar' }}
+        </ion-button>
+
+        <ion-button expand="block" color="medium" fill="outline" (click)="limpar()">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Limpar
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="clientes.length > 0">
+    <ion-card-header>
+      <ion-card-title>Clientes Cadastrados</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let c of clientes">
+          <ion-label>
+            <h2>{{ c.nome }}</h2>
+            <p>CPF: {{ c.cpf }} | Tel: {{ c.telefone }}</p>
+            <p *ngIf="c.email">{{ c.email }}</p>
+          </ion-label>
+          <ion-button fill="clear" color="primary" (click)="editar(c)">
+            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" (click)="excluir(c.id)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

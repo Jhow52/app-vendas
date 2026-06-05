@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Venda</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Nova Venda</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label position="stacked">Cliente</ion-label>
+        <ion-select placeholder="Selecione o cliente" (ionChange)="selecionarCliente($event)">
+          <ion-select-option *ngFor="let c of clientes" [value]="c.nome">
+            {{ c.nome }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Produto</ion-label>
+        <ion-select placeholder="Selecione o produto" (ionChange)="selecionarProduto($event)">
+          <ion-select-option *ngFor="let p of produtos" [value]="p.nome">
+            {{ p.nome }} — R$ {{ p.preco | number:'1.2-2' }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Quantidade</ion-label>
+        <ion-input type="number" [(ngModel)]="quantidadeItem" min="1"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" color="secondary" (click)="adicionarItem()" class="ion-margin-top">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Adicionar Item
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="itensVenda.length > 0">
+    <ion-card-header>
+      <ion-card-title>Itens da Venda</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list>
+        <ion-item *ngFor="let item of itensVenda; let i = index">
+          <ion-label>
+            <h2>{{ item.produto.nome }}</h2>
+            <p>Qtd: {{ item.quantidade }} × R$ {{ item.produto.preco | number:'1.2-2' }}</p>
+            <p><strong>Subtotal: R$ {{ item.subtotal | number:'1.2-2' }}</strong></p>
+          </ion-label>
+          <ion-button slot="end" fill="clear" color="danger" (click)="removerItem(i)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+      <ion-item lines="none">
+        <ion-label><strong>Total</strong></ion-label>
+        <ion-note slot="end" color="primary">
+          <strong>R$ {{ totalVenda | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+      <ion-button expand="block" color="success" (click)="finalizarVenda()" class="ion-margin-top">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        Finalizar Venda
+      </ion-button>
+
+      <ion-button expand="block" fill="outline" color="danger" (click)="limpar()">
+        <ion-icon name="close-circle-outline" slot="start"></ion-icon>
+        Cancelar
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="vendas.length > 0">
+    <ion-card-header>
+      <ion-card-title>Histórico de Vendas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let v of vendas">
+          <ion-label>
+            <h2>Venda #{{ v.id }} — {{ v.cliente.nome }}</h2>
+            <p>Data: {{ v.data }}</p>
+            <p>Total: R$ {{ v.total | number:'1.2-2' }}</p>
+          </ion-label>
+          <ion-badge slot="end" [color]="v.status === 'recebido' ? 'success' : 'warning'">
+            {{ v.status }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

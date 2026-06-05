@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Relatórios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Resumo Geral -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Resumo Geral</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item lines="none">
+        <ion-icon name="cart-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>Total de Vendas</ion-label>
+        <ion-note slot="end"><strong>{{ totalVendas }}</strong></ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="checkmark-circle-outline" slot="start" color="success"></ion-icon>
+        <ion-label>Vendas Recebidas</ion-label>
+        <ion-note slot="end" color="success"><strong>{{ vendasRecebidas }}</strong></ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="time-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>Vendas Pendentes</ion-label>
+        <ion-note slot="end" color="warning"><strong>{{ vendasPendentes }}</strong></ion-note>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label></ion-label>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="cash-outline" slot="start" color="primary"></ion-icon>
+        <ion-label><strong>Total Geral</strong></ion-label>
+        <ion-note slot="end" color="primary">
+          <strong>R$ {{ totalGeral | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="trending-up-outline" slot="start" color="success"></ion-icon>
+        <ion-label>Total Recebido</ion-label>
+        <ion-note slot="end" color="success">
+          <strong>R$ {{ totalRecebido | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-icon name="hourglass-outline" slot="start" color="warning"></ion-icon>
+        <ion-label>Total Pendente</ion-label>
+        <ion-note slot="end" color="warning">
+          <strong>R$ {{ totalPendente | number:'1.2-2' }}</strong>
+        </ion-note>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Vendas por Cliente -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Vendas por Cliente</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list>
+        <ion-item *ngFor="let c of vendasPorCliente">
+          <ion-icon name="person-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>{{ c.nome }}</h2>
+            <p>Quantidade de vendas: {{ c.quantidade }}</p>
+          </ion-label>
+          <ion-note slot="end" color="primary">
+            <strong>R$ {{ c.total | number:'1.2-2' }}</strong>
+          </ion-note>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Produtos Mais Vendidos -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Produtos Mais Vendidos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list>
+        <ion-item *ngFor="let p of produtosMaisVendidos; let i = index">
+          <ion-badge slot="start" color="primary">{{ i + 1 }}º</ion-badge>
+          <ion-label>
+            <h2>{{ p.nome }}</h2>
+            <p>Qtd vendida: {{ p.quantidade }}</p>
+          </ion-label>
+          <ion-note slot="end" color="primary">
+            <strong>R$ {{ p.total | number:'1.2-2' }}</strong>
+          </ion-note>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Detalhamento de Todas as Vendas -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Todas as Vendas</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-list>
+        <ion-item *ngFor="let v of vendas">
+          <ion-label>
+            <h2>Venda #{{ v.id }} — {{ v.cliente.nome }}</h2>
+            <p>Data: {{ v.data }}</p>
+            <p>Total: R$ {{ v.total | number:'1.2-2' }}</p>
+          </ion-label>
+          <ion-badge slot="end" [color]="v.status === 'recebido' ? 'success' : 'warning'">
+            {{ v.status }}
+          </ion-badge>
+        </ion-item>
+      </ion-list>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

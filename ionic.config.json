@@ -1,0 +1,7 @@
+{
+  "name": "sistema-vendas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

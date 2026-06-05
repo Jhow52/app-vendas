@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="voltar()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Cadastro de Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ modoEdicao ? 'Editar Usuário' : 'Novo Usuário' }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label position="floating">Nome</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.nome"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Login</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario.login"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Senha</ion-label>
+        <ion-input type="password" [(ngModel)]="usuario.senha"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Perfil</ion-label>
+        <ion-select [(ngModel)]="usuario.perfil" placeholder="Selecione">
+          <ion-select-option value="admin">Administrador</ion-select-option>
+          <ion-select-option value="operador">Operador</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <div class="form-buttons">
+        <ion-button expand="block" color="primary" (click)="salvar()">
+          <ion-icon name="save-outline" slot="start"></ion-icon>
+          {{ modoEdicao ? 'Atualizar' : 'Salvar' }}
+        </ion-button>
+
+        <ion-button expand="block" color="medium" fill="outline" (click)="limpar()">
+          <ion-icon name="refresh-outline" slot="start"></ion-icon>
+          Limpar
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="usuarios.length > 0">
+    <ion-card-header>
+      <ion-card-title>Usuários Cadastrados</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let u of usuarios">
+          <ion-label>
+            <h2>{{ u.nome }}</h2>
+            <p>Login: {{ u.login }} | Perfil: {{ u.perfil }}</p>
+          </ion-label>
+          <ion-button fill="clear" color="primary" (click)="editar(u)">
+            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" color="danger" (click)="excluir(u.id)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

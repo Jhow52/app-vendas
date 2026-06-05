@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Sistema de Vendas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="sair()">
+        <ion-icon name="log-out-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding menu-content">
+
+  <h2 class="menu-titulo">Menu Principal</h2>
+
+  <ion-grid>
+    <ion-row>
+
+      <ion-col size="6">
+        <ion-card button (click)="irPara('/cadastro/usuario')" class="menu-card">
+          <ion-card-content>
+            <ion-icon name="person-outline"></ion-icon>
+            <p>Usuário</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card button (click)="irPara('/cadastro/produto')" class="menu-card">
+          <ion-card-content>
+            <ion-icon name="cube-outline"></ion-icon>
+            <p>Produto</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card button (click)="irPara('/cadastro/cliente')" class="menu-card">
+          <ion-card-content>
+            <ion-icon name="people-outline"></ion-icon>
+            <p>Cliente</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card button (click)="irPara('/venda')" class="menu-card">
+          <ion-card-content>
+            <ion-icon name="cart-outline"></ion-icon>
+            <p>Venda</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card button (click)="irPara('/receber')" class="menu-card">
+          <ion-card-content>
+            <ion-icon name="cash-outline"></ion-icon>
+            <p>Receber</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-card button (click)="irPara('/relatorios')" class="menu-card">
+          <ion-card-content>
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <p>Relatórios</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
